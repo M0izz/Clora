@@ -4,6 +4,28 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "indusai-x"
+version = "0.1.0"
+description = "Sovereign On-Premise Agentic AI Workbench for MRPL (SIH Problem Statement 26117)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pymupdf>=1.28.0",
+    "python-docx>=1.2.0",
+    "duckdb>=1.5.0",
+    "pandas>=2.2.0",
+    "psutil>=6.0.0",
+    "pytesseract>=0.3.10",
+    "reportlab>=4.0.0",
+    "pillow>=10.0.0",
+    "sqlglot>=30.0.0",
+    "networkx>=3.0.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.30.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
 version = "1.0.0"
 description = "Sovereign On-Premise Agentic AI Workbench for MRPL (SIH26117)"
 readme = "README.md"
