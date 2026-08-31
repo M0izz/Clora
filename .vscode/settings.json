@@ -1,0 +1,12 @@
+{
+    "python.defaultInterpreterPath": "C:\\Users\\omkar\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/data_intelligence",
+        "${workspaceFolder}/security",
+        "${workspaceFolder}/samples"
+    ],
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.linting.enabled": true
+}

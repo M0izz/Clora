@@ -8,7 +8,7 @@ agent findings (ApprovalNoteInput or flat LLM tool payloads).
 """
 
 import os
-from typing import Dict, Any, Union
+from typing import Dict, Any, Union, Optional
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -85,7 +85,7 @@ class ApprovalNoteGenerator:
             output_docx_path=payload.get("output_docx_path", "approval_note.docx")
         )
 
-    def generate(self, payload: Union[ApprovalNoteInput, Dict[str, Any]], output_path: str = None) -> str:
+    def generate(self, payload: Union[ApprovalNoteInput, Dict[str, Any]], output_path: Optional[str] = None) -> str:
         """Builds and saves the formatted .docx approval note."""
         note = self._parse_payload(payload)
         target_path = output_path or note.output_docx_path
