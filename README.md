@@ -1,11 +1,11 @@
 # INDUSAI-X — Sovereign On-Premise Agentic AI Workbench
-**MRPL SIH26117 | Intelligence Backbone**
+**MRPL SIH26117 | Sovereign Industrial Intelligence Platform**
 
 INDUSAI-X is an air-gappable, sovereign industrial AI workbench designed for Mangalore Refinery and Petrochemicals Limited (MRPL). It executes 100% locally with open-weight models, enforces retrieval-time permission boundaries, orchestrates industrial multi-agent workflows with LangGraph, and deploys a Hallucination Firewall to guarantee traceable, evidence-grounded conclusions.
 
 ---
 
-## 1. Repository Structure
+## 1. Unified Repository Architecture
 
 ```
 INDUSAI-X/
@@ -18,20 +18,29 @@ INDUSAI-X/
 │   └── pull_request_template.md   # Standardized PR checklist
 │
 ├── backend/
-│   ├── agents/                    # Specialized industrial agents
+│   ├── app/                       # FastAPI Web & Persistence Layer (Spine)
+│   │   ├── main.py                # FastAPI app factory, CORS, startup sweep
+│   │   ├── api/routes/            # Workspaces, Files, Queries, Audits, Health
+│   │   ├── core/                  # Configuration & security context
+│   │   ├── db/                    # SQLite WAL database & SQLAlchemy models
+│   │   ├── schemas/               # Pydantic request/response schemas
+│   │   ├── services/              # Audit, Workspace, File, and Agent services
+│   │   └── integrations/          # Clients connecting to RAG, Agents, and Vision
+│   │
+│   ├── agents/                    # Multi-Agent Intelligence Core
 │   │   ├── __init__.py
 │   │   ├── planner.py             # Intent classification & workflow planning
 │   │   ├── rag_agent.py           # Permission-filtered RAG & self-healing re-retrieval
 │   │   ├── investigation_agent.py # Multi-source correlation across reports
 │   │   └── engineering_agent.py   # Industrial parameter limits verification
 │   │
-│   ├── graph/                     # LangGraph workflow orchestration
+│   ├── graph/                     # LangGraph Workflow Orchestration
 │   │   ├── __init__.py
 │   │   ├── state.py               # TypedDict AgentState
 │   │   ├── workflow.py            # Compiled multi-agent StateGraph
 │   │   └── routes.py              # FastAPI agent endpoints
 │   │
-│   ├── rag/                       # Sovereign local RAG pipeline
+│   ├── rag/                       # Sovereign Local RAG Pipeline
 │   │   ├── __init__.py
 │   │   ├── ingestion.py           # Section-aware PDF/DOCX parser
 │   │   ├── chunking.py            # Table- & section-preserving chunker
@@ -40,29 +49,22 @@ INDUSAI-X/
 │   │   ├── retrieval.py           # Permission filter, reranker, query expander
 │   │   └── evidence.py            # Standard Evidence & EvidencePack models
 │   │
-│   ├── verification/              # Hallucination Firewall
-│   │   ├── __init__.py
-│   │   ├── claim_extractor.py     # Atomic factual claim extraction
-│   │   ├── verifier.py            # Claim NLI, contradiction & Causal Leap Downgrader
-│   │   └── guardrails.py          # 5-section response formatter & human review router
-│   │
-│   └── main.py                    # FastAPI main entrypoint
+│   └── verification/              # Hallucination Firewall & Causality Guard
+│       ├── __init__.py
+│       ├── claim_extractor.py     # Atomic factual claim extraction
+│       ├── verifier.py            # Claim NLI, contradiction & Causal Leap Downgrader
+│       └── guardrails.py          # 5-section response formatter & human review router
 │
-├── tests/
+├── tests/                         # Full automated test suites
 │   ├── test_agents/
-│   │   ├── test_planner.py
-│   │   └── test_rag_agent.py
 │   ├── test_rag/
-│   │   ├── test_chunking.py
-│   │   ├── test_embeddings.py
-│   │   ├── test_evidence.py
-│   │   └── test_retrieval.py
 │   ├── test_verification/
-│   │   ├── test_guardrails.py
-│   │   └── test_causality.py
 │   └── test_workflow.py
 │
 ├── benchmark_embeddings.py        # Local embedding model benchmark suite
+├── demo.py                        # End-to-end demonstration script
+├── docker-compose.yml             # Containerized local deployment
+├── API_CONTRACTS.md               # Frozen JSON integration contracts
 ├── requirements.txt               # Production dependencies
 ├── requirements-dev.txt           # Development & testing dependencies
 ├── pyproject.toml                 # Packaging & tool configurations
@@ -81,12 +83,16 @@ cd INDUSAI-X
 # 2. Install dependencies
 pip install -r requirements-dev.txt
 
-# 3. Run the automated test suite
+# 3. Run all automated test suites
 pytest tests/ -v --cov=backend
 
 # 4. Start the FastAPI local server
-python -m uvicorn backend.main:app --reload
+python -m uvicorn backend.app.main:app --reload
 ```
+
+Interactive Documentation:
+- Swagger UI: `http://localhost:8000/docs`
+- Redoc: `http://localhost:8000/redoc`
 
 ---
 
