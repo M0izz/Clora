@@ -1,3 +1,6 @@
+from typing import Any
+
+from backend.app.core.config import settings
 """
 Agent Client Integration Bridge.
 Connects Member 3 FastAPI Spine with Member 4 (Local Inference), Member 5 (LangGraph / Hallucination Firewall), and Member 6 (Data Intelligence / DuckDB / KG).

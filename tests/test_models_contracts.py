@@ -3,13 +3,13 @@ Tests for Data Intelligence Models and Member 5 & 3 Contracts.
 """
 
 import unittest
+
 from data_intelligence.models import (
-    PageExtraction,
-    DocumentExtractionResult,
-    DocumentChunk,
-    FindingItem,
+    MEMBER3_TOOL_DEFINITIONS,
     ApprovalNoteInput,
-    MEMBER3_TOOL_DEFINITIONS
+    DocumentChunk,
+    DocumentExtractionResult,
+    PageExtraction,
 )
 
 
@@ -58,7 +58,7 @@ class TestModelsAndContracts(unittest.TestCase):
         # Test JSON round-trip
         json_str = doc.to_json()
         self.assertIn("DOC1_P1_C0", json_str)
-        
+
         doc_recovered = DocumentExtractionResult.from_dict(doc_dict)
         self.assertEqual(doc_recovered.document_id, "DOC1")
         self.assertEqual(doc_recovered.pages[0].chunks[0].chunk_id, "DOC1_P1_C0")

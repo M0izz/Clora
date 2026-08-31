@@ -4,6 +4,7 @@ Tests for PDF Extraction and OCR Fallback Engine.
 
 import os
 import unittest
+
 from data_intelligence.pdf_extractor import DocumentExtractor, reconstruct_table_from_ocr_data
 
 

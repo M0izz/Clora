@@ -1,28 +1,31 @@
 import asyncio
 import uuid
+
 from fastapi import (
     APIRouter,
     BackgroundTasks,
     Depends,
     HTTPException,
-    Query as QueryParam,
     Response,
     status,
 )
-from sqlalchemy.orm import Session
-from app.core.config import settings
-from app.db.database import get_db
-from app.db.models import Query, Workspace, AgentTask
-from app.core.security import get_current_user
-from app.schemas.query import (
-    QueryCreate,
-    QueryResponse,
-    QueryPollResponse,
-    QueryListResponse,
-    AgentTaskResponse,
+from fastapi import (
+    Query as QueryParam,
 )
-from app.services import agent_service
-from app.services.audit_service import log_action
+from sqlalchemy.orm import Session
+
+from backend.app.core.config import settings
+from backend.app.core.security import get_current_user
+from backend.app.db.database import get_db
+from backend.app.db.models import AgentTask, Query, Workspace
+from backend.app.schemas.query import (
+    AgentTaskResponse,
+    QueryCreate,
+    QueryListResponse,
+    QueryPollResponse,
+)
+from backend.app.services import agent_service
+from backend.app.services.audit_service import log_action
 
 router = APIRouter(tags=["Queries"])
 

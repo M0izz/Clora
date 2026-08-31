@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.graph.routes import routes as graph_router
+from data_intelligence.api_router import router as member6_router
 
 app = FastAPI(
     title="INDUSAI-X Sovereign Agentic AI Workbench",
@@ -22,6 +23,7 @@ app.add_middleware(
 )
 
 app.include_router(graph_router, prefix="/api/v1")
+app.include_router(member6_router, prefix="/api/v1")
 
 
 @app.get("/health")

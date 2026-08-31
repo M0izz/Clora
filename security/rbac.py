@@ -51,6 +51,21 @@ ROLE_PERMISSIONS: Dict[str, Set[str]] = {
     }
 }
 
+# Default roles allowed to read ingested documents (used as ChromaDB metadata)
+DEFAULT_DOCUMENT_ROLES = "Admin,Plant_Engineer,Safety_Officer,Auditor"
+
+
+class RBACEnforcer:
+    """Class-based RBAC enforcer for use by integration_bridge.py."""
+
+    def require(self, role: str, action: str) -> None:
+        """Raises PermissionError if role is not authorized for action."""
+        enforce_permission(role, action)
+
+    def is_allowed(self, role: str, action: str) -> bool:
+        """Returns True if role can perform action."""
+        return check_permission(role, action)
+
 
 def check_permission(role: str, action: str) -> bool:
     """Checks whether a given role is authorized to perform an action."""

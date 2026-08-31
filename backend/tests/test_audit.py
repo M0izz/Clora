@@ -38,7 +38,7 @@ def test_audit_log_filtering(client):
         json={"name": "Audit Filter Test"},
         headers={"X-User-Id": "engineer_alice"},
     )
-    ws_id = ws_resp.json()["id"]
+    assert ws_resp.status_code == 201
 
     # Filter by user_id
     user_audit = client.get("/api/audit?user_id=engineer_alice")

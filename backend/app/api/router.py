@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from app.api.routes import workspace, file, query, audit
+
+from backend.app.api.routes import audit, file, query, workspace
 
 api_router = APIRouter()
 

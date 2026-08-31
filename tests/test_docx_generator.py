@@ -4,7 +4,9 @@ Tests for Word Deliverable Generator (.docx).
 
 import os
 import unittest
+
 from docx import Document
+
 from data_intelligence.docx_generator import ApprovalNoteGenerator
 from data_intelligence.models import ApprovalNoteInput, FindingItem
 

@@ -1,11 +1,16 @@
 import os
 import tempfile
 from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 
+import backend.app.db.database as db_module
+from backend.app.core.config import settings
+from backend.app.db.database import Base, get_db
+from backend.app.main import create_app
 from backend.app.core.config import settings
 from backend.app.db.database import Base, get_db
 from backend.app.main import create_app

@@ -1,12 +1,14 @@
 import uuid
 from datetime import datetime, timezone
+
 from sqlalchemy.orm import Session
-from app.db import database
-from app.db.models import Query, AgentTask, File, Workspace
-from app.services.audit_service import log_action
-from app.integrations.rag_client import rag_client
-from app.integrations.vision_client import vision_client
-from app.integrations.agent_client import agent_client
+
+from backend.app.db import database
+from backend.app.db.models import AgentTask, File, Query
+from backend.app.integrations.agent_client import agent_client
+from backend.app.integrations.rag_client import rag_client
+from backend.app.integrations.vision_client import vision_client
+from backend.app.services.audit_service import log_action
 
 
 def get_utc_now() -> datetime:

@@ -4,6 +4,7 @@ Tests for Air-Gap Network Sentinel and Sovereignty Certificate Generator.
 
 import os
 import unittest
+
 from security.network_proof import AirGapSentinel
 
 

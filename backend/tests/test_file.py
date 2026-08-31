@@ -1,6 +1,6 @@
 import io
-from pathlib import Path
-from app.core.config import settings
+
+from backend.app.core.config import settings
 
 
 def test_file_upload_and_download(client, sample_pdf_bytes, sample_png_bytes, sample_csv_bytes):

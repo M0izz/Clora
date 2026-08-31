@@ -1,3 +1,8 @@
+from typing import Any
+
+import httpx
+
+from backend.app.core.config import settings
 """
 RAG Client Integration Bridge.
 Connects Member 3 FastAPI Spine with Member 5 Sovereign RAG Pipeline & ChromaDB.

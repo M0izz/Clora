@@ -1,6 +1,7 @@
 import io
 import time
-from app.core.config import settings
+
+from backend.app.core.config import settings
 
 
 def test_pump_p101_industrial_demo_scenario(
