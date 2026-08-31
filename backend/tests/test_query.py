@@ -1,8 +1,8 @@
 import time
 
-from app.core.config import settings
-from app.db.models import Query, Workspace
-from app.services.agent_service import recover_zombie_queries
+from backend.app.core.config import settings
+from backend.app.db.models import Query, Workspace
+from backend.app.services.agent_service import recover_zombie_queries
 
 
 def test_async_query_and_polling(client):

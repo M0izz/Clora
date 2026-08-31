@@ -1,9 +1,10 @@
-from app.core.security import get_current_user
-from app.db.database import get_db
-from app.db.models import AuditLog, Workspace
-from app.schemas.audit import AuditLogListResponse, AuditLogResponse
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
+
+from backend.app.core.security import get_current_user
+from backend.app.db.database import get_db
+from backend.app.db.models import AuditLog, Workspace
+from backend.app.schemas.audit import AuditLogListResponse, AuditLogResponse
 
 router = APIRouter(prefix="/audit", tags=["Audit Trail"])
 

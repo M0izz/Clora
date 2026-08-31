@@ -1,4 +1,4 @@
-from app.core.config import settings
+from backend.app.core.config import settings
 
 
 def test_workspace_crud(client):

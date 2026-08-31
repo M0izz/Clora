@@ -1,7 +1,8 @@
-from app.db.database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import text
 from sqlalchemy.orm import Session
+
+from backend.app.db.database import get_db
 
 router = APIRouter(tags=["Health"])
 

@@ -1,10 +1,5 @@
 from pathlib import Path
 
-from app.core.security import get_current_user, validate_internal_service_key
-from app.db.database import get_db
-from app.schemas.common import MessageResponse
-from app.schemas.file import FileListResponse, FileResponse, FileStatusUpdate
-from app.services import file_service
 from fastapi import (
     APIRouter,
     Depends,
@@ -18,6 +13,12 @@ from fastapi import (
 )
 from fastapi.responses import FileResponse as FastAPIFileresponse
 from sqlalchemy.orm import Session
+
+from backend.app.core.security import get_current_user, validate_internal_service_key
+from backend.app.db.database import get_db
+from backend.app.schemas.common import MessageResponse
+from backend.app.schemas.file import FileListResponse, FileResponse, FileStatusUpdate
+from backend.app.services import file_service
 
 router = APIRouter(tags=["Files"])
 

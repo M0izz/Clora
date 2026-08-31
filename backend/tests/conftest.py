@@ -2,14 +2,15 @@ import os
 import tempfile
 from pathlib import Path
 
-import app.db.database as db_module
 import pytest
-from app.core.config import settings
-from app.db.database import Base, get_db
-from app.main import create_app
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
+
+import backend.app.db.database as db_module
+from backend.app.core.config import settings
+from backend.app.db.database import Base, get_db
+from backend.app.main import create_app
 
 
 @pytest.fixture(scope="session")

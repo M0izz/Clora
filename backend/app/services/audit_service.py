@@ -1,7 +1,8 @@
 from typing import Any
 
-from app.db.models import AuditLog, Workspace
 from sqlalchemy.orm import Session
+
+from backend.app.db.models import AuditLog, Workspace
 
 
 def log_action(

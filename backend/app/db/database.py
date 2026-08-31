@@ -1,9 +1,10 @@
 from collections.abc import Generator
 from pathlib import Path
 
-from app.core.config import settings
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session, declarative_base, sessionmaker
+
+from backend.app.core.config import settings
 
 
 def _ensure_sqlite_dir(url: str) -> None:
