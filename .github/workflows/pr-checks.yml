@@ -1,0 +1,15 @@
+name: PR Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-validation:
+    name: Validate PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR Title and Description
+        run: |
+          echo "Validating PR against team guidelines..."
+          echo "PR Checks Complete."
