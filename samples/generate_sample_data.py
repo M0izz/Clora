@@ -10,7 +10,7 @@ import os
 import io
 import random
 import pandas as pd
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 from PIL import Image, ImageDraw, ImageFilter
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
@@ -200,7 +200,7 @@ def generate_telemetry_csv(output_path: str) -> str:
     base_time = pd.Timestamp("2026-08-31 06:00:00")
 
     for i in range(60):
-        t = base_time + pd.Timedelta(minutes=i * 15)
+        t = base_time + pd.Timedelta(minutes=float(i * 15))
         eq = equipment_list[i % len(equipment_list)]
         
         # Add random sensor jitter

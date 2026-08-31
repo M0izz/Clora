@@ -18,7 +18,7 @@ import io
 import gc
 import hashlib
 from typing import List, Dict, Any, Optional, Tuple
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 from PIL import Image
 import pytesseract
 

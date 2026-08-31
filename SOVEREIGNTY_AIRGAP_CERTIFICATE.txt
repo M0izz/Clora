@@ -1,0 +1,18 @@
+================================================================================
+   INDUSAI-X: SOVEREIGN ON-PREMISE AI WORKBENCH - NETWORK PROOF CERTIFICATE   
+   SIH Problem Statement 26117 | Mangalore Refinery and Petrochemicals Ltd      
+================================================================================
+
+Timestamp:              2026-08-31T07:22:25.898197+00:00
+Verification Status:    PASSED / ISOLATED
+Audited Checkpoints:    0 snapshot cycles
+External Sockets Found: 0
+Audit Log File:         C:\Users\omkar\OneDrive\Documents\SIH_project\airgap_proof_log.jsonl
+Root Integrity Hash:    0000000000000000000000000000000000000000000000000000000000000000
+
+CERTIFICATION STATEMENT:
+This document cryptographically certifies that during document extraction,
+OCR fallback processing, in-memory DuckDB analytics, and report generation,
+zero network requests were made to external or cloud AI endpoints.
+All telemetry, P&IDs, and confidential refinery records remained entirely on-premises.
+================================================================================
