@@ -3,12 +3,12 @@
    SIH Problem Statement 26117 | Mangalore Refinery and Petrochemicals Ltd      
 ================================================================================
 
-Timestamp:              2026-08-31T07:22:52.129946+00:00
+Timestamp:              2026-08-31T07:37:07.506306+00:00
 Verification Status:    VERIFIED AIR-GAPPED (100% ON-PREMISES)
-Audited Checkpoints:    3 snapshot cycles
+Audited Checkpoints:    6 snapshot cycles
 External Sockets Found: 0
 Audit Log File:         C:\Users\omkar\OneDrive\Documents\SIH_project\demo_airgap_proof.jsonl
-Root Integrity Hash:    100bffa65470717dc7f67ede04bacc9b408590989bef267a5dd0e53fcea62b4a
+Root Integrity Hash:    47e4bb847327fd604952e42f5964537fc762361861a9bacd74b205acad45e483
 
 CERTIFICATION STATEMENT:
 This document cryptographically certifies that during document extraction,
