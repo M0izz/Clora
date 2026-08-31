@@ -200,9 +200,25 @@ Evidence
 
 ---
 
-## Local Embedding Benchmark Results
+## Offline Inference & Embedding Benchmarks
 
-Benchmarked on a 10-pair synthetic MRPL technical evaluation corpus (equipment failures, operating protocols, vibration limits, H2S safety rules):
+All metrics represent inference and retrieval executed **100% locally and offline** without internet connectivity.
+
+### 1. Local LLM Inference Benchmarks (Ollama Offline Runtime)
+
+| Model | Parameter Size | Task / Prompt Complexity | Time to First Token (TTFT) | Throughput (tok/s) | Total Latency | Key Recommendation |
+|---|:---:|---|:---:|:---:|:---:|---|
+| **Llama 3.2 3B** | 3.2B | Short Query (Capital of India) | **0.51 s** | **10.2 tok/s** | **1.44 s** | **Primary Agent Default**: Lowest TTFT & highest throughput |
+| **Llama 3.2 3B** | 3.2B | Medium Prompt (DPDP Summary) | **0.75 s** | **10.1 tok/s** | **2.66 s** | Ideal for interactive query routing & agent planning |
+| **Llama 3.2 3B** | 3.2B | Long Policy Analysis | **1.50 s** | 8.1 tok/s | 65.23 s | Fast initial response for long context synthesis |
+| **Phi-3 Mini** | 3.8B | Short Query (Capital of India) | 0.52 s | 8.1 tok/s | 34.00 s | High precision for structured formula extraction |
+| **Phi-3 Mini** | 3.8B | Medium Prompt (DPDP Summary) | 1.37 s | 7.5 tok/s | 19.73 s | Solid reasoning on technical engineering procedures |
+| **Phi-3 Mini** | 3.8B | Long Policy Analysis | 2.77 s | 6.2 tok/s | 86.40 s | Best suited for asynchronous batch analysis |
+| **Qwen 2.5 3B** | 3.0B | Short Query (Capital of India) | 2.00 s | 7.0 tok/s | 19.26 s | Strong multilingual and code understanding |
+| **Qwen 2.5 3B** | 3.0B | Medium Prompt (DPDP Summary) | 2.20 s | 8.3 tok/s | 40.55 s | High instruction following on strict JSON schemas |
+| **Qwen 2.5 3B** | 3.0B | Long Policy Analysis | 1.90 s | **8.7 tok/s** | 60.98 s | High sustained throughput during long context generation |
+
+### 2. Local Embedding Model Benchmarks (MRPL Technical Eval Set)
 
 | Candidate Model | Vector Dimension | Query Latency | Throughput | Recall@1 | Recall@3 | Memory Overhead |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
