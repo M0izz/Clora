@@ -39,5 +39,6 @@ jobs:
       - name: Run tests with coverage
         env:
           INDUSAI_FAST_TEST: "1"
+          PYTHONPATH: "."
         run: |
           pytest tests/ -v --cov=backend --cov-report=term-missing

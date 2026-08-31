@@ -1,13 +1,15 @@
 import os
 import tempfile
 from pathlib import Path
+
+import app.db.database as db_module
 import pytest
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine, event
-from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
 from app.db.database import Base, get_db
 from app.main import create_app
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine, event
+from sqlalchemy.orm import sessionmaker
 
 
 @pytest.fixture(scope="session")
@@ -48,9 +50,6 @@ def test_db_engine(temp_storage_root):
             db_file.unlink()
         except OSError:
             pass
-
-
-import app.db.database as db_module
 
 
 @pytest.fixture(scope="function")

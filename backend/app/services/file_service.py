@@ -1,11 +1,12 @@
 import uuid
 from pathlib import Path
-from fastapi import HTTPException, UploadFile, status
-from sqlalchemy.orm import Session
+
 from app.core.config import settings
 from app.db.models import File, Workspace
 from app.services.audit_service import log_action
 from app.services.workspace_service import get_workspace_dir
+from fastapi import HTTPException, UploadFile, status
+from sqlalchemy.orm import Session
 
 
 def sniff_magic_bytes(header: bytes, ext: str) -> bool:

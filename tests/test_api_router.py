@@ -4,8 +4,10 @@ Tests for FastAPI REST Router Endpoints.
 
 import os
 import unittest
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+
 from data_intelligence.api_router import router
 
 app = FastAPI()

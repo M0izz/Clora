@@ -3,6 +3,7 @@ Tests for NetworkX Refinery Knowledge Graph Engine.
 """
 
 import unittest
+
 from data_intelligence.knowledge_graph import RefineryKnowledgeGraph
 
 

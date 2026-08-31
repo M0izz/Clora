@@ -1,6 +1,7 @@
 from typing import Annotated
-from fastapi import Header, HTTPException, status
+
 from app.core.config import settings
+from fastapi import Header, HTTPException, status
 
 
 async def get_current_user(

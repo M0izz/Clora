@@ -1,16 +1,17 @@
 import uuid
 from datetime import datetime, timezone
+
+from app.db.database import Base
 from sqlalchemy import (
+    JSON,
     Column,
-    String,
-    Integer,
-    Text,
     DateTime,
     ForeignKey,
-    JSON,
+    Integer,
+    String,
+    Text,
 )
 from sqlalchemy.orm import relationship
-from app.db.database import Base
 
 
 def generate_uuid() -> str:

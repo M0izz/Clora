@@ -1,6 +1,7 @@
 from typing import Any
-from sqlalchemy.orm import Session
+
 from app.db.models import AuditLog, Workspace
+from sqlalchemy.orm import Session
 
 
 def log_action(

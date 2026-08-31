@@ -2,13 +2,14 @@
 Tests for RBAC matrix, Thread-Safe Audit Logger, and Tamper-Evidence.
 """
 
-import os
 import json
-import unittest
+import os
 import threading
-from security.rbac import check_permission, enforce_permission, PermissionDeniedError
-from security.audit_trail import AuditLogger
+import unittest
+
 from security.airgap_monitor import check_network_isolation
+from security.audit_trail import AuditLogger
+from security.rbac import PermissionDeniedError, check_permission, enforce_permission
 
 
 class TestSecurityAndAudit(unittest.TestCase):

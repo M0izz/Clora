@@ -4,7 +4,8 @@ Tests for Tabular DuckDB Engine and AST-level SQL Security Guard.
 
 import os
 import unittest
-from data_intelligence.tabular_engine import TabularEngine, SQLSecurityError
+
+from data_intelligence.tabular_engine import SQLSecurityError, TabularEngine
 
 
 class TestTabularEngine(unittest.TestCase):

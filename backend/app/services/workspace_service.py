@@ -1,9 +1,10 @@
 import shutil
 from pathlib import Path
-from sqlalchemy.orm import Session
+
 from app.core.config import settings
-from app.db.models import Workspace, File, Query
+from app.db.models import File, Query, Workspace
 from app.services.audit_service import log_action
+from sqlalchemy.orm import Session
 
 
 def get_workspace_dir(workspace_id: str) -> Path:

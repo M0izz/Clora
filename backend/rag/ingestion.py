@@ -104,8 +104,8 @@ class DocumentParser:
 
             doc = docx.Document(file_path)
             current_title = "General"
-            current_lines = []
-            tables_text = []
+            current_lines: List[str] = []
+            tables_text: List[str] = []
 
             for p in doc.paragraphs:
                 text = p.text.strip()
@@ -159,8 +159,8 @@ class DocumentParser:
         sections: List[ParsedSection] = []
         lines = page_text.splitlines()
         current_title = "General"
-        current_lines = []
-        tables_text = []
+        current_lines: List[str] = []
+        tables_text: List[str] = []
 
         for line in lines:
             line_str = line.strip()

@@ -5,11 +5,7 @@ RBACBridge, and AuditBridge all function correctly without
 requiring langgraph or chromadb to be installed.
 """
 
-import os
-import tempfile
 import pytest
-from unittest.mock import MagicMock, patch
-
 
 # ---------------------------------------------------------------------------
 # KnowledgeGraphBridge tests

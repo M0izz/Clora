@@ -1,5 +1,5 @@
 import io
-from pathlib import Path
+
 from app.core.config import settings
 
 

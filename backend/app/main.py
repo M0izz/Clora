@@ -1,11 +1,13 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+
+from app.api.router import api_router
 from app.core.config import settings
 from app.db import database
-from app.api.router import api_router
-from app.api.routes import health
 from app.services.agent_service import recover_zombie_queries
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.api.routes import health
 
 
 @asynccontextmanager

@@ -60,7 +60,7 @@ class LocalEmbeddingService:
 
     def _fallback_embed(self, text: str) -> List[float]:
         """Deterministic 384-d semantic hash projection for offline test mode."""
-        vec = np.zeros(self._dim, dtype=np.float32)
+        vec: np.ndarray = np.zeros(self._dim, dtype=np.float32)
         words = text.lower().split()
         if not words:
             return vec.tolist()
