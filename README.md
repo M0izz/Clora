@@ -9,12 +9,13 @@
 
 **INDUSAI-X** is an air-gappable, sovereign industrial AI platform engineered for confidential refinery and petrochemical operations. Unlike public cloud chatbots, INDUSAI-X operates entirely on local, open-weight foundation models to preserve operational data sovereignty while automating complex root cause investigations, SOP retrieval, and multi-source engineering analysis.
 
-The system combines:
+The system delivers:
 1. **Sovereign Local Inference**: Zero outbound API calls; local embeddings and LLM inference (SentenceTransformers, Ollama).
 2. **Permission-Aware RAG**: Strict role-based access control (RBAC) enforced at vector retrieval time before data reaches model context.
 3. **LangGraph Multi-Agent Orchestration**: Specialized agents for planning, document search, multi-source cross-correlation, and evidence synthesis.
-4. **Industrial Hallucination Firewall**: Deterministic claim verification, cross-source contradiction detection, and automated causal leap downgrading.
-5. **Forensic Auditability**: Complete, immutable event logging capturing queries, retrieved sources, verification decisions, and confidence scores.
+4. **Data Intelligence & Knowledge Graph**: Safe in-memory DuckDB SQL engine with AST protection and NetworkX refinery asset topology reasoning.
+5. **Industrial Hallucination Firewall**: Deterministic claim verification, cross-source contradiction detection, and automated causal leap downgrading.
+6. **Forensic Auditability & Air-Gap Sentinel**: Tamper-evident SHA-256 chained audit logs and real-time process socket inspection with certified air-gap proof.
 
 ---
 
@@ -43,12 +44,14 @@ flowchart TD
         I["Document Ingestion & Section Chunker"]
         J["ChromaDB Vector Store"]
         K["Local Embedding Models"]
+        L["DuckDB & NetworkX Topology"]
     end
 
     subgraph Governance & Verification [Hallucination Firewall]
-        L["Claim Extraction Engine"]
-        M["Evidence Verifier & Causal Leap Guard"]
-        N["Guardrail Formatter & Human Escalation Stub"]
+        M["Claim Extraction Engine"]
+        N["Evidence Verifier & Causal Leap Guard"]
+        O["Guardrail Formatter & Human Escalation Stub"]
+        P["Air-Gap Network Sentinel"]
     end
 
     A --> B
@@ -61,10 +64,11 @@ flowchart TD
     K <--> J
     F --> G
     G --> H
-    H --> L
-    L --> M
+    H --> M
     M --> N
-    N --> B
+    N --> O
+    O --> B
+    D <--> P
 ```
 
 ---
