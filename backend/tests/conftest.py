@@ -11,6 +11,10 @@ import backend.app.db.database as db_module
 from backend.app.core.config import settings
 from backend.app.db.database import Base, get_db
 from backend.app.main import create_app
+from backend.app.core.config import settings
+from backend.app.db.database import Base, get_db
+from backend.app.main import create_app
+import backend.app.db.database as db_module
 
 
 @pytest.fixture(scope="session")
