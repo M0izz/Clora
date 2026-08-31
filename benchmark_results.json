@@ -1,0 +1,74 @@
+[
+  {
+    "model": "llama3.2:3b",
+    "prompt": "short",
+    "total_latency_s": 1.436,
+    "ttft_s": 0.509,
+    "tokens_generated": 9,
+    "tokens_per_sec": 10.2
+  },
+  {
+    "model": "llama3.2:3b",
+    "prompt": "medium",
+    "total_latency_s": 2.657,
+    "ttft_s": 0.751,
+    "tokens_generated": 19,
+    "tokens_per_sec": 10.1
+  },
+  {
+    "model": "llama3.2:3b",
+    "prompt": "long",
+    "total_latency_s": 65.226,
+    "ttft_s": 1.5,
+    "tokens_generated": 512,
+    "tokens_per_sec": 8.1
+  },
+  {
+    "model": "phi3:mini",
+    "prompt": "short",
+    "total_latency_s": 34.004,
+    "ttft_s": 0.52,
+    "tokens_generated": 150,
+    "tokens_per_sec": 8.1
+  },
+  {
+    "model": "phi3:mini",
+    "prompt": "medium",
+    "total_latency_s": 19.732,
+    "ttft_s": 1.372,
+    "tokens_generated": 137,
+    "tokens_per_sec": 7.5
+  },
+  {
+    "model": "phi3:mini",
+    "prompt": "long",
+    "total_latency_s": 86.403,
+    "ttft_s": 2.765,
+    "tokens_generated": 512,
+    "tokens_per_sec": 6.2
+  },
+  {
+    "model": "qwen2.5:3b",
+    "prompt": "short",
+    "total_latency_s": 19.257,
+    "ttft_s": 1.998,
+    "tokens_generated": 9,
+    "tokens_per_sec": 7.0
+  },
+  {
+    "model": "qwen2.5:3b",
+    "prompt": "medium",
+    "total_latency_s": 40.545,
+    "ttft_s": 2.199,
+    "tokens_generated": 304,
+    "tokens_per_sec": 8.3
+  },
+  {
+    "model": "qwen2.5:3b",
+    "prompt": "long",
+    "total_latency_s": 60.976,
+    "ttft_s": 1.898,
+    "tokens_generated": 512,
+    "tokens_per_sec": 8.7
+  }
+]
