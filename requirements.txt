@@ -9,19 +9,29 @@ pydantic>=2.0.0
 pydantic-settings>=2.0.0
 python-dotenv>=1.0.0
 
-# AI, Inference & Agents
+# AI, Inference & Agents (Members 2, 3, 4)
 langchain-core>=1.6.0
 langchain-ollama>=1.1.0
 langgraph>=1.2.0
 
-# Embeddings & Vector DB
+# Embeddings & Vector DB (Member 5)
 chromadb>=1.5.0
 sentence-transformers>=5.0.0
 torch>=2.0.0
 
-# Document Processing
+# Data Intelligence & Document Processing (Member 6)
 pymupdf>=1.24.0
 python-docx>=1.1.0
+duckdb>=1.5.0
+pandas>=2.2.0
+sqlglot>=30.0.0
+networkx>=3.0.0
+reportlab>=4.0.0
+pillow>=10.0.0
+pytesseract>=0.3.10
+
+# Security & Audit (Member 6)
+psutil>=6.0.0
 
 # CLI & Output Formatting
 rich>=13.0.0
