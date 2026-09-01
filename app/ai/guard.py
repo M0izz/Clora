@@ -93,6 +93,8 @@ _STRIP_PATTERNS: list[re.Pattern] = [
     re.compile(r"<\s*/?\s*system\s*>", re.IGNORECASE),
     re.compile(r"\[INST\].*?\[/INST\]", re.IGNORECASE | re.DOTALL),
     re.compile(r"<<\s*SYS\s*>>.*?<<\s*/SYS\s*>>", re.IGNORECASE | re.DOTALL),
+    re.compile(r"ignore\s+(all\s+)?(previous|prior|above|earlier)\s+(instructions?|prompts?|rules?|context)[\.\,\;]?", re.IGNORECASE),
+    re.compile(r"(disregard|forget|override|bypass)\s+(your|the|all|any)\s+(instructions?|rules?|guidelines?|system\s+prompt)[\.\,\;]?", re.IGNORECASE),
 ]
 
 
@@ -111,13 +113,11 @@ def scan_prompt(text: str) -> ScanResult:
     for pattern, label, level in _PATTERNS:
         if pattern.search(text):
             flags.append(label)
-            if level.value > worst_level.value or (
-                list(PromptThreatLevel).index(level) >
-                list(PromptThreatLevel).index(worst_level)
-            ):
+            if _LEVEL_ORDER.get(level, 0) > _LEVEL_ORDER.get(worst_level, 0):
                 worst_level = level
 
     sanitized = _strip_dangerous(text)
+
 
     reason = ""
     if flags:

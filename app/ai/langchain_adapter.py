@@ -81,7 +81,7 @@ def get_json_model(model: str | None = None, **kwargs: Any) -> ChatOllama:
 
 def bind_tools(
     llm: ChatOllama,
-    tools: Sequence[BaseTool | dict],
+    tools: Sequence[BaseTool | dict] | None = None,
 ) -> ChatOllama:
     """
     Bind tool-calling schemas to a ChatOllama instance.
@@ -89,12 +89,15 @@ def bind_tools(
 
     Args:
         llm:   A ChatOllama instance from get_chat_model().
-        tools: List of LangChain BaseTool instances or raw OpenAI-style tool dicts.
+        tools: List of LangChain BaseTool instances or raw OpenAI-style tool dicts (defaults to TOOL_SCHEMAS).
 
     Returns:
         A new ChatOllama with tools bound (use .invoke() as normal).
     """
+    if tools is None:
+        tools = list(TOOL_SCHEMAS.values())
     return llm.bind_tools(tools)
+
 
 
 # ---------------------------------------------------------------------------
@@ -204,3 +207,7 @@ def get_tool_schema(name: str) -> dict | None:
 def list_tool_schemas() -> list[str]:
     """List all available pre-built tool schema names."""
     return list(TOOL_SCHEMAS.keys())
+
+
+TOOL_DEFINITIONS = TOOL_SCHEMAS
+

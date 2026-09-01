@@ -38,16 +38,31 @@ class UnsupportedModelError(Exception):
     pass
 
 
+ALIASES = {
+    "llama3.2": "llama3.2:3b",
+    "llama3": "llama3.2:3b",
+    "llama": "llama3.2:3b",
+    "phi3": "phi3:mini",
+    "phi": "phi3:mini",
+    "qwen2.5": "qwen2.5:3b",
+    "qwen": "qwen2.5:3b",
+    "vision": "moondream",
+}
+
+
 def resolve_model(requested: Optional[str]) -> str:
     """Validate a requested model name, or return the default. Never raises to caller crash —
     callers should catch UnsupportedModelError and return a clean 400, not a 500."""
     if requested is None:
         return DEFAULT_MODEL
-    if requested not in _REGISTRY:
+    
+    canonical = ALIASES.get(requested.lower().strip(), requested)
+    if canonical not in _REGISTRY:
         raise UnsupportedModelError(
             f"Model '{requested}' is not registered. Available: {list(_REGISTRY.keys())}"
         )
-    return requested
+    return canonical
+
 
 
 def list_models() -> list[dict]:

@@ -43,8 +43,12 @@ class GenerateResponse(BaseModel):
     done: bool = True
 
 
-class SwitchModelRequest(BaseModel):
-    model: str = Field(..., description="Model tag to set as active default")
+class GuardScanRequest(BaseModel):
+    prompt: str = Field(..., min_length=1, description="Prompt text to scan for injection or jailbreak patterns")
+
+
+class GuardSanitizeRequest(BaseModel):
+    prompt: str = Field(..., min_length=1, description="Prompt text to sanitize")
 
 
 # ---------------------------------------------------------------------------
@@ -52,7 +56,9 @@ class SwitchModelRequest(BaseModel):
 # ---------------------------------------------------------------------------
 
 def _get_service(request: Request) -> InferenceService:
-    return request.app.state.inference
+    if hasattr(request.app.state, "inference") and request.app.state.inference is not None:
+        return request.app.state.inference
+    return InferenceService()
 
 
 # ---------------------------------------------------------------------------
@@ -163,6 +169,10 @@ async def generate_stream(body: GenerateRequest, request: Request):
     return EventSourceResponse(event_generator())
 
 
+class SwitchModelRequest(BaseModel):
+    model: str = Field(..., description="Model tag to set as active default")
+
+
 @router.post("/models/switch", summary="Switch the active default model")
 async def switch_model(body: SwitchModelRequest, request: Request):
     """
@@ -189,3 +199,42 @@ async def switch_model(body: SwitchModelRequest, request: Request):
     logger.info("Default model switched to %s", body.model)
 
     return {"status": "ok", "default_model": body.model}
+
+
+
+@router.post("/guard/scan", summary="Scan prompt for injection/jailbreak patterns")
+async def guard_scan(body: GuardScanRequest):
+    from app.ai.guard import scan_prompt
+    result = scan_prompt(body.prompt)
+    return {
+        "level": result.level.value,
+        "is_safe": result.level.value in ["safe", "low"],
+        "flags": result.flags,
+        "reason": result.reason,
+        "sanitized": result.sanitized,
+    }
+
+
+@router.post("/guard/sanitize", summary="Sanitize prompt removing dangerous injection patterns")
+async def guard_sanitize(body: GuardSanitizeRequest):
+    from app.ai.guard import sanitize
+    cleaned = sanitize(body.prompt)
+    return {
+        "original": body.prompt,
+        "sanitized": cleaned,
+    }
+
+
+@router.get("/benchmark/results", summary="Retrieve local offline inference benchmarks")
+async def get_benchmark_results():
+    from pathlib import Path
+    bench_file = Path("benchmark_results.json")
+    if bench_file.exists():
+        try:
+            with open(bench_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            return {"status": "ok", "benchmark_results": data}
+        except Exception as exc:
+            raise HTTPException(status_code=500, detail=f"Error reading benchmark results: {exc}")
+    return {"status": "pending", "message": "Benchmark results not yet generated. Run benchmark suite."}
+
