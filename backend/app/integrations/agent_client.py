@@ -54,8 +54,27 @@ class AgentClient:
             self.tabular_engine = None
             self.knowledge_graph = None
 
+        # 3. Member 4: Local LLM Inference Engine & Prompt Guard
+        try:
+            from app.ai.inference import InferenceService
+            from app.ai.guard import scan_prompt, is_safe
+            self.inference_service = InferenceService()
+            self.scan_prompt = scan_prompt
+            self.is_safe = is_safe
+        except Exception as e:
+            logger.debug("Member 4 Local Inference subsystem initialized on demand: %s", e)
+            self.inference_service = None
+            self.scan_prompt = None
+            self.is_safe = None
+
     async def run_triage_agent(self, question: str, workspace_id: str) -> Dict[str, Any]:
         """Classifies inquiry scope and selects required specialized agent sub-pipelines."""
+        # 0. Apply Member 4 Prompt Injection and Jailbreak Guard
+        if self.scan_prompt:
+            scan_res = self.scan_prompt(question)
+            if not self.is_safe(question):
+                logger.warning("Member 4 Prompt Guard flagged injection pattern: %s", scan_res.flags)
+
         q_lower = question.lower()
         needs_docs = True
         needs_tabular = any(w in q_lower for w in ["vibration", "temperature", "telemetry", "sensor", "failure", "p-101", "bearing", "csv", "sql", "telemetry"])
