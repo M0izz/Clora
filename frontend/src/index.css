@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ==========================================================================
    CLORA SOVEREIGN AI OPERATING ENVIRONMENT — DESIGN SYSTEM & TOKENS
    ========================================================================== */
@@ -46,45 +48,39 @@
 }
 
 /* Reset & Base Setup */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-base);
-  color: var(--text-main);
+  background-color: #141312 !important;
+  color: #f5f2ed !important;
   min-height: 100vh;
   overflow-x: hidden;
   letter-spacing: -0.01em;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
 /* Glassmorphism & Custom Surfaces */
 .clora-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  background: #201e1b;
+  border: 1px solid #34302a;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   transition: all 0.2s ease;
 }
 
 .clora-card:hover {
-  border-color: var(--border-highlight);
+  border-color: rgba(217, 130, 91, 0.4);
   box-shadow: 0 6px 24px rgba(217, 130, 91, 0.08);
 }
 
 .clora-surface {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  background: #1a1816;
+  border: 1px solid #2b2824;
   border-radius: 10px;
 }
 
 /* Glowing Buttons & Badges */
 .btn-copper {
-  background: var(--copper-main);
+  background: #d9825b;
   color: #ffffff;
   font-weight: 600;
   border-radius: 8px;
@@ -95,11 +91,11 @@ body {
   align-items: center;
   gap: 8px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 10px var(--copper-glow);
+  box-shadow: 0 2px 10px rgba(217, 130, 91, 0.25);
 }
 
 .btn-copper:hover {
-  background: var(--copper-hover);
+  background: #e28e67;
   box-shadow: 0 4px 16px rgba(217, 130, 91, 0.4);
   transform: translateY(-1px);
 }
@@ -110,8 +106,8 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--text-main);
-  border: 1px solid var(--border-card);
+  color: #f5f2ed;
+  border: 1px solid #34302a;
   border-radius: 8px;
   padding: 7px 16px;
   font-weight: 500;
@@ -123,14 +119,14 @@ body {
 }
 
 .btn-outline:hover {
-  border-color: var(--copper-main);
-  color: var(--copper-main);
-  background: var(--copper-subtle);
+  border-color: #d9825b;
+  color: #d9825b;
+  background: rgba(217, 130, 91, 0.12);
 }
 
 /* Custom Status Pills */
 .status-pill-sage {
-  background: var(--status-sage-bg);
+  background: rgba(110, 140, 110, 0.15);
   color: #a3c9a3;
   border: 1px solid rgba(110, 140, 110, 0.35);
   padding: 3px 10px;
@@ -143,7 +139,7 @@ body {
 }
 
 .status-pill-emerald {
-  background: var(--status-emerald-bg);
+  background: rgba(16, 185, 129, 0.15);
   color: #34d399;
   border: 1px solid rgba(16, 185, 129, 0.35);
   padding: 3px 10px;
@@ -156,7 +152,7 @@ body {
 }
 
 .status-pill-amber {
-  background: var(--status-amber-bg);
+  background: rgba(217, 119, 6, 0.15);
   color: #fbbf24;
   border: 1px solid rgba(217, 119, 6, 0.35);
   padding: 3px 10px;
@@ -169,9 +165,9 @@ body {
 }
 
 .status-pill-copper {
-  background: var(--copper-subtle);
+  background: rgba(217, 130, 91, 0.12);
   color: #f0a380;
-  border: 1px solid var(--copper-glow);
+  border: 1px solid rgba(217, 130, 91, 0.25);
   padding: 3px 10px;
   border-radius: 9999px;
   font-size: 11px;
@@ -188,16 +184,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-base);
+  background: #141312;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-card);
+  background: #34302a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dim);
+  background: #6d675e;
 }
 
 /* Animations */
