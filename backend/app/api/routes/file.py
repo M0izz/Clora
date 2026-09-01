@@ -1,8 +1,8 @@
-from pathlib import Path
-
 from fastapi import (
     APIRouter,
+    BackgroundTasks,
     Depends,
+    Form,
     HTTPException,
     Query,
     UploadFile,
@@ -19,6 +19,7 @@ from backend.app.db.database import get_db
 from backend.app.schemas.common import MessageResponse
 from backend.app.schemas.file import FileListResponse, FileResponse, FileStatusUpdate
 from backend.app.services import file_service
+from backend.app.services.ingestion_service import create_ingestion_job, process_ingestion_job
 
 router = APIRouter(tags=["Files"])
 
@@ -31,13 +32,14 @@ router = APIRouter(tags=["Files"])
 )
 async def upload_file(
     workspace_id: str,
+    background_tasks: BackgroundTasks,
     file: UploadFile = FastAPIFile(..., description="Industrial PDF, diagram image, or telemetry CSV"),
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
     """
     Securely ingest industrial documents, drawings, or sensor data.
-    Validates magic bytes, enforces size limits, and isolates disk storage per workspace.
+    Validates magic bytes, enforces size limits, and dispatches in-process background ingestion.
     """
     file_record = await file_service.save_uploaded_file(
         db=db,
@@ -45,7 +47,55 @@ async def upload_file(
         upload_file=file,
         user_id=current_user.get("id"),
     )
-    return file_record
+
+    # Create Ingestion Job and dispatch BackgroundTask
+    job = create_ingestion_job(
+        db=db,
+        file_id=file_record.id,
+        workspace_id=workspace_id,
+        filename=file_record.filename,
+    )
+    background_tasks.add_task(process_ingestion_job, job.id)
+
+    res = FileResponse.model_validate(file_record)
+    res.ingestion_job_id = job.id
+    return res
+
+
+@router.post(
+    "/files/upload",
+    response_model=FileResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Upload File with Workspace ID Form",
+)
+async def upload_file_direct(
+    background_tasks: BackgroundTasks,
+    workspace_id: str = Form(..., description="Target Workspace UUID"),
+    file: UploadFile = FastAPIFile(..., description="File to ingest"),
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    """
+    Direct upload endpoint alias matching API_CONTRACTS.md: POST /api/files/upload.
+    """
+    file_record = await file_service.save_uploaded_file(
+        db=db,
+        workspace_id=workspace_id,
+        upload_file=file,
+        user_id=current_user.get("id"),
+    )
+
+    job = create_ingestion_job(
+        db=db,
+        file_id=file_record.id,
+        workspace_id=workspace_id,
+        filename=file_record.filename,
+    )
+    background_tasks.add_task(process_ingestion_job, job.id)
+
+    res = FileResponse.model_validate(file_record)
+    res.ingestion_job_id = job.id
+    return res
 
 
 @router.get(

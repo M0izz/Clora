@@ -10,7 +10,7 @@ Connects Member 3 FastAPI Spine with Member 5 Sovereign RAG Pipeline & ChromaDB.
 
 from typing import Any, List, Dict, Optional
 import logging
-from app.core.config import settings
+from backend.app.core.config import settings
 
 logger = logging.getLogger("indusai.rag_client")
 

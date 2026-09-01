@@ -8,7 +8,7 @@ Connects Member 3 FastAPI Spine with Member 4 (Local Inference), Member 5 (LangG
 
 from typing import Any, List, Dict, Optional
 import logging
-from app.core.config import settings
+from backend.app.core.config import settings
 
 logger = logging.getLogger("indusai.agent_client")
 

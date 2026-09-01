@@ -12,6 +12,7 @@ class FileResponse(BaseModel):
     status: str  # uploaded, processing, indexed, failed
     uploaded_by: str | None = None
     error_message: str | None = None
+    ingestion_job_id: str | None = None
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
