@@ -208,3 +208,91 @@ def list_workspace_queries(
         "items": items,
         "total": total,
     }
+
+
+# ============================================================================
+# Investigation Session Aliases & DOCX Export
+# ============================================================================
+
+@router.post(
+    "/investigations",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Dispatch Investigation (Alias for /api/query)",
+)
+async def dispatch_investigation(
+    data: QueryCreate,
+    background_tasks: BackgroundTasks,
+    response: Response,
+    sync: bool = QueryParam(False, description="Debug only synchronous execution mode"),
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    return await dispatch_query(
+        data=data,
+        background_tasks=background_tasks,
+        response=response,
+        sync=sync,
+        db=db,
+        current_user=current_user,
+    )
+
+
+@router.get(
+    "/investigations/{investigation_id}",
+    response_model=QueryPollResponse,
+    summary="Poll Investigation Status (Alias for /api/query/{id})",
+)
+def poll_investigation(
+    investigation_id: str,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    return poll_query(
+        query_id=investigation_id,
+        db=db,
+        current_user=current_user,
+    )
+
+
+@router.get(
+    "/query/{query_id}/export-docx",
+    summary="Export Technical Approval Note as DOCX",
+)
+def export_query_docx(
+    query_id: str,
+    db: Session = Depends(get_db),
+):
+    """
+    Generates and downloads a standardized MRPL Executive Approval Note in DOCX format.
+    """
+    query_record = db.query(Query).filter(Query.id == query_id).first()
+    if not query_record or not query_record.response:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Completed query '{query_id}' not found",
+        )
+
+    try:
+        from data_intelligence.docx_generator import ApprovalNoteGenerator, ApprovalNoteInput
+        generator = ApprovalNoteGenerator()
+        doc_input = ApprovalNoteInput(
+            title=f"Investigation: {query_record.question[:60]}",
+            equipment_tag="Refinery Asset",
+            executive_summary=query_record.response[:300],
+            root_cause_analysis=query_record.response,
+            recommendations=["Follow SOP corrective maintenance procedures.", "Inspect valve calibration."],
+            citations=[s.get("filename", "Doc") for s in (query_record.sources or [])],
+        )
+        doc_bytes = generator.generate_bytes(doc_input)
+        from fastapi.responses import Response as FastAPIBinaryResponse
+        return FastAPIBinaryResponse(
+            content=doc_bytes,
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={"Content-Disposition": f"attachment; filename=MRPL_Approval_Note_{query_id[:8]}.docx"},
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate DOCX document: {e}",
+        )
+

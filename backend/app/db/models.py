@@ -80,6 +80,12 @@ class File(Base):
     created_at = Column(DateTime(timezone=True), default=get_utc_now, nullable=False)
 
     workspace = relationship("Workspace", back_populates="files")
+    ingestion_jobs = relationship(
+        "IngestionJob",
+        back_populates="file",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
 
 
 class Query(Base):
@@ -140,6 +146,38 @@ class AgentTask(Base):
     query = relationship("Query", back_populates="agent_tasks")
 
 
+class IngestionJob(Base):
+    __tablename__ = "ingestion_jobs"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    file_id = Column(
+        String(36),
+        ForeignKey("files.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    workspace_id = Column(
+        String(36),
+        ForeignKey("workspaces.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    filename = Column(String(255), nullable=False)
+    status = Column(
+        String(50),
+        nullable=False,
+        default="QUEUED",
+        index=True,
+    )  # QUEUED, PROCESSING, INDEXING, COMPLETED, FAILED
+    progress = Column(Integer, nullable=False, default=0)  # 0 to 100
+    chunks_count = Column(Integer, nullable=True, default=0)
+    error_message = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=get_utc_now, nullable=False)
+    completed_at = Column(DateTime(timezone=True), nullable=True)
+
+    file = relationship("File", back_populates="ingestion_jobs")
+
+
 class AuditLog(Base):
     __tablename__ = "audit_logs"
 
@@ -150,3 +188,4 @@ class AuditLog(Base):
     resource = Column(String(100), nullable=False)  # workspace, file, query, system
     details = Column(JSON, nullable=True, default=dict)  # Snapshots of workspace_name, file_name, etc.
     timestamp = Column(DateTime(timezone=True), default=get_utc_now, nullable=False, index=True)
+

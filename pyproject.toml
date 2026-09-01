@@ -5,44 +5,36 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "indusai-x"
 version = "1.0.0"
-description = "Sovereign On-Premise Agentic AI Workbench for MRPL (SIH Problem Statement 26117)"
-readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-    "pymupdf>=1.24.0",
-    "python-docx>=1.1.0",
-    "duckdb>=1.5.0",
-    "pandas>=2.2.0",
-    "psutil>=6.0.0",
-    "pytesseract>=0.3.10",
-    "reportlab>=4.0.0",
-    "pillow>=10.0.0",
-    "sqlglot>=30.0.0",
-    "networkx>=3.0.0",
 description = "Sovereign On-Premise Agentic AI Workbench for MRPL (SIH26117)"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "sqlalchemy>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+    "python-multipart>=0.0.18",
+    "pymupdf>=1.24.0",
+    "python-docx>=1.1.0",
+    "duckdb>=1.0.0",
+    "pandas>=2.0.0",
+    "psutil>=5.9.0",
+    "networkx>=3.0.0",
+    "sqlglot>=20.0.0",
     "langgraph>=1.2.0",
     "langchain-core>=1.6.0",
     "chromadb>=1.5.0",
     "sentence-transformers>=5.0.0",
     "torch>=2.0.0",
-    "pydantic>=2.0.0",
-    "fastapi>=0.115.0",
-    "uvicorn[standard]>=0.30.0",
-    "pydantic>=2.0.0",
-    "python-dotenv>=1.0.0",
-    "httpx>=0.27.0",
-    "python-multipart>=0.0.18"
-    "pymupdf>=1.24.0",
-    "python-docx>=1.1.0",
-    "duckdb>=1.0.0",
-    "sqlglot>=20.0.0",
-    "networkx>=3.0.0",
-    "pandas>=2.0.0",
-    "psutil>=5.9.0"
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0"
 ]
+
+[tool.setuptools.packages.find]
+include = ["backend*", "app*", "data_intelligence*", "security*", "indusai*"]
 
 [tool.ruff]
 line-length = 100
@@ -64,6 +56,5 @@ follow_imports = "skip"
 [tool.pytest.ini_options]
 testpaths = ["tests", "backend/tests"]
 python_files = ["test_*.py"]
-pythonpath = ["."]
 pythonpath = [".", "backend"]
 asyncio_mode = "auto"
